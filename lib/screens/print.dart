@@ -55,31 +55,46 @@ class PrintPage extends StatelessWidget {
 
   Future<void> processAndPrint(BuildContext context) async {
     try {
+      // 1. Loading PDF
       final ByteData data = await rootBundle.load("assets/nota_toko.pdf");
       final Uint8List bytes = data.buffer.asUint8List();
 
       final sf.PdfDocument pdfDocument = sf.PdfDocument(inputBytes: bytes);
-
       final Uint8List imageBytes = await imageFile.readAsBytes();
       final sf.PdfBitmap image = sf.PdfBitmap(imageBytes);
 
-      final sf.PdfPage page = pdfDocument.pages[0];
-      page.graphics.drawImage(image, const Rect.fromLTWH(400, 460, 120, 120));
+      // 2. Gambar Image
+      pdfDocument.pages[0].graphics.drawImage(
+        image,
+        const Rect.fromLTWH(400, 460, 120, 120),
+      );
+
+      // 3. Simpan dan Pastikan menjadi Uint8List yang bersih
       final List<int> pdfOutputBytes = await pdfDocument.save();
       pdfDocument.dispose();
+      final Uint8List finalPdfData = Uint8List.fromList(pdfOutputBytes);
 
+      final customFormat = pw.PdfPageFormat(
+        15 * pw.PdfPageFormat.cm,
+        10 * pw.PdfPageFormat.cm,
+        marginAll:
+            0.5 *
+            pw
+                .PdfPageFormat
+                .cm, // Beri margin agar tidak terpotong printer inkjet
+      );
+
+      // 4. Perintah Layout dengan Formating A4
       await Printing.layoutPdf(
-        onLayout: (pw.PdfPageFormat format) async =>
-            Uint8List.fromList(pdfOutputBytes),
-        name: 'Nota_Toko_${DateTime.now().millisecondsSinceEpoch}.pdf',
+        onLayout: (pw.PdfPageFormat format) async => finalPdfData,
+        // Memaksa printer inkjet menggunakan standar A4
+        dynamicLayout: true,
+        format: pw.PdfPageFormat.a4,
+        // format: customFormat,
+        name: 'Cetak_Nota_${DateTime.now().second}',
       );
     } catch (e) {
-      debugPrint("Error detail: $e");
-      if (context.mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text("Terjadi kesalahan: $e")));
-      }
+      print("Error: $e");
     }
   }
 }
