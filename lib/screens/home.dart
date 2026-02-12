@@ -33,7 +33,7 @@ class _HomeState extends State<Home> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
               width: 350,
               child: MaterialButton(
                 onPressed: pickImageFromGallery,
@@ -49,7 +49,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: 350,
               child: MaterialButton(
                 onPressed: pickImageFromCamera,
