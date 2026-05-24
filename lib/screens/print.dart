@@ -56,7 +56,7 @@ class PrintPage extends StatelessWidget {
   Future<void> processAndPrint(BuildContext context) async {
     try {
       // 1. Loading PDF
-      final ByteData data = await rootBundle.load("assets/nota_toko.pdf");
+      final ByteData data = await rootBundle.load("assets/nota_ukuran.pdf");
       final Uint8List bytes = data.buffer.asUint8List();
 
       final sf.PdfDocument pdfDocument = sf.PdfDocument(inputBytes: bytes);
@@ -66,7 +66,7 @@ class PrintPage extends StatelessWidget {
       // 2. Gambar Image
       pdfDocument.pages[0].graphics.drawImage(
         image,
-        const Rect.fromLTWH(400, 460, 100, 100),
+        const Rect.fromLTWH(600, 660, 100, 100),
       );
 
       // 3. Simpan dan Pastikan menjadi Uint8List yang bersih
