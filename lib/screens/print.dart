@@ -66,7 +66,7 @@ class PrintPage extends StatelessWidget {
       // 2. Gambar Image
       pdfDocument.pages[0].graphics.drawImage(
         image,
-        const Rect.fromLTWH(400, 460, 120, 120),
+        const Rect.fromLTWH(400, 460, 100, 100),
       );
 
       // 3. Simpan dan Pastikan menjadi Uint8List yang bersih
@@ -75,22 +75,19 @@ class PrintPage extends StatelessWidget {
       final Uint8List finalPdfData = Uint8List.fromList(pdfOutputBytes);
 
       final customFormat = pw.PdfPageFormat(
-        15 * pw.PdfPageFormat.cm,
-        10 * pw.PdfPageFormat.cm,
-        marginAll:
-            0.5 *
-            pw
-                .PdfPageFormat
-                .cm, // Beri margin agar tidak terpotong printer inkjet
+        19.7 * pw.PdfPageFormat.cm,
+        13 * pw.PdfPageFormat.cm,
+        marginAll: 0,
       );
 
       // 4. Perintah Layout dengan Formating A4
       await Printing.layoutPdf(
         onLayout: (pw.PdfPageFormat format) async => finalPdfData,
         // Memaksa printer inkjet menggunakan standar A4
-        dynamicLayout: true,
-        format: pw.PdfPageFormat.a4,
-        // format: customFormat,
+        dynamicLayout: false,
+        // format: pw.PdfPageFormat.a4,
+        format: customFormat,
+        forceCustomPrintPaper: true,
         name: 'Cetak_Nota_${DateTime.now().second}',
       );
     } catch (e) {

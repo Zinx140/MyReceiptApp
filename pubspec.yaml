@@ -39,6 +39,7 @@ dependencies:
   image_picker: ^1.1.2
   printing: ^5.14.2
   syncfusion_flutter_pdf: ^30.2.5
+  flutter_secure_storage: ^10.3.0
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +71,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/nota_toko.pdf
+    - assets/nota_ukuran.pdf
 
   # To add assets to your application, add an assets section, like this:
   # assets:
