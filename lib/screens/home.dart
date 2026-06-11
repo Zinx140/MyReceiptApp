@@ -107,7 +107,7 @@ class _HomeState extends State<Home> {
       setState(() {
         selectedImage = File(returnedImage.path);
       });
-````
+
       Navigator.push(
         context,
         MaterialPageRoute(
