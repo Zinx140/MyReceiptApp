@@ -36,24 +36,8 @@ class _HomeState extends State<Home> {
             SizedBox(
               width: 350,
               child: MaterialButton(
-                onPressed: pickImageFromGallery,
-                color: Colors.blue[200],
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    12,
-                  ), // ⬅ Border radius here
-                ),
-                child: Text(
-                  "Pick image from Gallery",
-                  style: TextStyle(color: Colors.white, fontSize: 24),
-                ),
-              ),
-            ),
-            SizedBox(
-              width: 350,
-              child: MaterialButton(
                 onPressed: pickImageFromCamera,
-                color: Colors.red[200],
+                color: Colors.blue[200],
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(
                     12,
@@ -62,6 +46,22 @@ class _HomeState extends State<Home> {
                 minWidth: 150,
                 child: Text(
                   "Pick image from Camera",
+                  style: TextStyle(color: Colors.white, fontSize: 24),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 350,
+              child: MaterialButton(
+                onPressed: pickImageFromGallery,
+                color: Colors.red[200],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    12,
+                  ), // ⬅ Border radius here
+                ),
+                child: Text(
+                  "Pick image from Gallery",
                   style: TextStyle(color: Colors.white, fontSize: 24),
                 ),
               ),
@@ -107,7 +107,7 @@ class _HomeState extends State<Home> {
       setState(() {
         selectedImage = File(returnedImage.path);
       });
-
+````
       Navigator.push(
         context,
         MaterialPageRoute(

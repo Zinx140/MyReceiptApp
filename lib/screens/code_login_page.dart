@@ -12,7 +12,7 @@ class CodeLoginPage extends StatefulWidget {
 class _CodeLoginPageState extends State<CodeLoginPage> {
   final TextEditingController codeController = TextEditingController();
 
-  final String correctCode = 'your_creds';
+  final String correctCode = '140506';
 
   Future<void> checkCode() async {
     final inputCode = codeController.text.trim();
